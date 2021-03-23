@@ -103,15 +103,15 @@
           ev.preventDefault();
           clickPager(this, keyword, -1);
         });
+        
         //次へボタンクリック時の処理
-
         $('body').on('click', '.btn-item:last', function(ev){
           ev.preventDefault();
           clickPager(this, keyword, 1);
         });
 
         //////////////関数定義//////////////
-        
+
         //////////ajax関数定義
         function ajax(page, keyword){
           $.ajax({
