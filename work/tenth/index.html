@@ -103,7 +103,7 @@
           ev.preventDefault();
           clickPager(this, keyword, -1);
         });
-        
+
         //次へボタンクリック時の処理
         $('body').on('click', '.btn-item:last', function(ev){
           ev.preventDefault();
@@ -180,14 +180,19 @@
             //通信エラーの際の処理
             $('.lists').empty();
             $('.pager').remove();
-            if (jqXHR.status === 400) {
-              $('.message').html('<p class="error-message">検索文字が入力されていません。<p>')
-            } else if (jqXHR.status === 429) {
-              $('.message').html('<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。<p>')
-            } else if (jqXHR.status === 500) {
-              $('.message').html('<p class="error-message">システムエラー。長時間続くようであれば、<a href="https://webservice.faq.rakuten.net/hc/ja/requests/new">こちら</a>よりごお問い合わせください。<p>')
-            } else {
-              $('.message').html('<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。<p>')
+            switch (jqXHR.status) {
+              case 400:
+                $('.message').html('<p class="error-message">検索文字が入力されていません。<p>');
+                break;
+              case 429:
+                $('.message').html('<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。<p>');
+                break;
+              case 500:
+                $('.message').html('<p class="error-message">システムエラー。長時間続くようであれば、<a href="https://webservice.faq.rakuten.net/hc/ja/requests/new">こちら</a>よりごお問い合わせください。<p>');
+                break;
+              default:
+                $('.message').html('<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。<p>');
+                break;
             }
           });
         }
